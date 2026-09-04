@@ -1,8 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
-:root { font-family: 'Manrope', system-ui, sans-serif; color: #17233c; background: #f4f6fa; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; --navy: #121d36; --muted: #6e7890; --border: #e2e6ef; --surface: #fff; --purple: #7b78db; --teal: #27a59a; }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; min-height: 100vh; }
-button { font: inherit; }
-button, a { -webkit-tap-highlight-color: transparent; }
-button:focus-visible, a:focus-visible { outline: 3px solid rgba(123,120,219,.35); outline-offset: 2px; }
+:root {
+  font-family: 'Manrope', system-ui, sans-serif;
+  color: #17233c;
+  background: #f4f6fa;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --navy: #121d36;
+  --muted: #6e7890;
+  --border: #e2e6ef;
+  --surface: #fff;
+  --purple: #7b78db;
+  --teal: #27a59a;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+button {
+  font: inherit;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(123, 120, 219, 0.35);
+  outline-offset: 2px;
+}
