@@ -11,6 +11,8 @@ O projeto apresenta os resultados experimentais obtidos nas bases **Cleveland** 
 - Comparação direta entre as bases Cleveland e Kaggle.
 - Filtro para visualizar uma base isoladamente ou ambas em conjunto.
 - Seleção da métrica utilizada no gráfico principal.
+- MCC como medida principal e seleção inicial do gráfico.
+- Escalas específicas para percentuais, coeficientes, perdas e tempo de execução.
 - Análise individual de cada algoritmo.
 - Exibição de médias e desvios-padrão das repetições.
 - Matrizes de confusão médias.
@@ -56,15 +58,14 @@ Os resultados apresentados correspondem à média de **três repetições** do p
 
 O símbolo `±` exibido no dashboard representa o **desvio-padrão** entre as repetições.
 
-## Principais resultados
+## Principais resultados descritivos
 
-- Na base **Cleveland**, o Naive Bayes apresentou a maior acurácia média: **83,6%**.
-- Na base **Kaggle**, o Random Forest apresentou a maior acurácia média: **73,0%**.
-- O maior ROC-AUC geral foi obtido pelo Naive Bayes no Cleveland: **90,6%**.
-- O algoritmo vencedor muda entre as bases, reforçando que o desempenho depende das características e da escala do conjunto de dados.
+- Na base **Cleveland**, o Naive Bayes apresentou o maior MCC médio observado: **0,669**.
+- Na base **Kaggle**, o Random Forest apresentou o maior MCC médio observado: **0,461**.
+- A ordenação por MCC muda entre as bases, reforçando que o desempenho descritivo depende das características e da escala do conjunto de dados.
 - O SVM apresentou custo computacional elevado na base Kaggle quando comparado aos demais algoritmos.
 
-Esses resultados são descritivos e representam exclusivamente os experimentos armazenados na pasta `data`.
+Esses resultados representam exclusivamente os experimentos armazenados na pasta `data`. Os destaques não indicam superioridade global nem diferença estatisticamente significativa entre os algoritmos.
 
 ## Estrutura dos resultados
 
@@ -153,10 +154,13 @@ dashboard-pesquisa/
 ## Observações metodológicas
 
 - As médias e os desvios-padrão são lidos diretamente dos resultados experimentais.
+- O MCC é a medida principal definida para as hipóteses; a acurácia permanece disponível como medida complementar.
 - A melhor configuração de cada algoritmo corresponde à primeira posição do respectivo arquivo de ranking.
 - As matrizes de confusão apresentam a média arredondada das três repetições.
 - Para acurácia, sensibilidade, especificidade, precisão, F1, MCC e ROC-AUC, valores maiores são melhores.
 - Para Brier score, Log loss e tempo de execução, valores menores são melhores.
+- MCC utiliza o intervalo de −1 a 1; Brier e Log loss usam escalas numéricas ajustadas aos valores observados, sem limite superior fixo para Log loss.
+- O tempo de execução é apresentado em escala logarítmica de base 10.
 - Comparações entre Cleveland e Kaggle devem considerar a diferença expressiva de tamanho e distribuição entre as bases.
 
 ## Aviso

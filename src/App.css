@@ -364,14 +364,31 @@ h1 {
     monospace;
 }
 .chart-grid {
+  position: relative;
   height: 234px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  background: repeating-linear-gradient(to bottom, transparent 0, transparent calc(33.333% - 1px), #edf0f5 33.333%);
   border-bottom: 1px solid #dfe3eb;
 }
+.chart-lines {
+  position: absolute;
+  inset: 0 0 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.chart-lines span {
+  width: 100%;
+  border-top: 1px solid #edf0f5;
+}
+.chart-lines span.zero-line {
+  border-top-color: #cbd2df;
+}
 .bar-group {
+  position: relative;
+  z-index: 1;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -459,6 +476,15 @@ h1 {
 .bar-label b {
   width: 25px;
   height: 25px;
+}
+.axis-label {
+  position: absolute;
+  left: 48px;
+  bottom: 10px;
+  color: #69758c;
+  font:
+    500 0.6875rem/1.2 'DM Mono',
+    monospace;
 }
 .chart-caption {
   display: flex;

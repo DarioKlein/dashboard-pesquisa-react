@@ -1,4 +1,4 @@
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useState, type CSSProperties } from 'react'
 import './App.css'
 import {
   algorithmIds,
@@ -33,6 +33,90 @@ const displayMetric = (metric: MetricId, value: number) => {
     return `${value.toFixed(1).replace('.', ',')} s`
   }
   return metric === 'MCC' || metric === 'Brier' || metric === 'Log_Loss' ? decimal(value) : pct(value)
+}
+
+type ChartScale = {
+  min: number
+  max: number
+  ticks: number[]
+  mode: 'linear' | 'log'
+  label: string
+  format: (value: number) => string
+}
+
+const percentageMetrics: MetricId[] = [
+  'Acuracia',
+  'Sensibilidade',
+  'Especificidade',
+  'Precisao',
+  'F1',
+  'ROC_AUC',
+  'Acuracia_Balanceada',
+]
+
+const niceStep = (value: number) => {
+  const exponent = Math.floor(Math.log10(value))
+  const fraction = value / 10 ** exponent
+  const niceFraction = fraction <= 1.5 ? 1 : fraction <= 2.25 ? 2 : fraction <= 3.5 ? 2.5 : fraction <= 7.5 ? 5 : 10
+  return niceFraction * 10 ** exponent
+}
+
+const observedLinearScale = (values: number[], label: string): ChartScale => {
+  const observedMax = Math.max(...values)
+  const step = niceStep((observedMax * 1.08) / 4)
+  const max = Math.ceil((observedMax * 1.08) / step) * step
+  const tickCount = Math.round(max / step)
+  return {
+    min: 0,
+    max,
+    ticks: Array.from({ length: tickCount + 1 }, (_, index) => max - index * step),
+    mode: 'linear',
+    label,
+    format: value => decimal(value, max < 1 ? 2 : 1),
+  }
+}
+
+const getChartScale = (metric: MetricId, values: number[]): ChartScale => {
+  if (percentageMetrics.includes(metric)) {
+    return {
+      min: 0,
+      max: 1,
+      ticks: [1, 0.75, 0.5, 0.25, 0],
+      mode: 'linear',
+      label: 'Escala percentual (0–100%)',
+      format: value => pct(value, 0),
+    }
+  }
+
+  if (metric === 'MCC') {
+    return {
+      min: -1,
+      max: 1,
+      ticks: [1, 0.5, 0, -0.5, -1],
+      mode: 'linear',
+      label: 'Coeficiente MCC (−1 a 1)',
+      format: value => decimal(value, 1),
+    }
+  }
+
+  if (metric === 'Tempo_Execucao_Segundos') {
+    const minExponent = Math.floor(Math.log10(Math.min(...values)))
+    const maxExponent = Math.ceil(Math.log10(Math.max(...values)))
+    const exponentStep = Math.max(1, Math.ceil((maxExponent - minExponent) / 4))
+    const exponents: number[] = []
+    for (let exponent = maxExponent; exponent >= minExponent; exponent -= exponentStep) exponents.push(exponent)
+    if (exponents.at(-1) !== minExponent) exponents.push(minExponent)
+    return {
+      min: 10 ** minExponent,
+      max: 10 ** maxExponent,
+      ticks: exponents.map(exponent => 10 ** exponent),
+      mode: 'log',
+      label: 'Tempo em segundos · escala log10',
+      format: value => displayMetric(metric, value),
+    }
+  }
+
+  return observedLinearScale(values, `${metricInfo[metric].label} · escala numérica`)
 }
 
 function Icon({ name }: { name: 'pulse' | 'grid' | 'compare' | 'models' | 'info' | 'download' }) {
@@ -145,43 +229,48 @@ function ComparisonChart({ metric, scope }: { metric: MetricId; scope: Scope }) 
   const values = visibleDatasets.flatMap(dataset =>
     algorithmIds.map(algorithm => getResult(dataset, algorithm).summary[metric].mean),
   )
-  const isTime = metric === 'Tempo_Execucao_Segundos'
-  const max = Math.max(...values)
-  const min = Math.min(...values)
-  const barHeight = (value: number) =>
-    isTime
-      ? 18 +
-        ((Math.log10(value + 0.01) - Math.log10(min + 0.01)) / (Math.log10(max + 0.01) - Math.log10(min + 0.01) || 1)) *
-          72
-      : Math.max(8, value * 100)
+  const scale = getChartScale(metric, values)
+  const range = scale.max - scale.min
+  const barGeometry = (value: number) => {
+    if (scale.mode === 'log') {
+      const logMin = Math.log10(scale.min)
+      const logRange = Math.log10(scale.max) - logMin
+      return { height: ((Math.log10(value) - logMin) / logRange) * 100, bottom: 0 }
+    }
+    const baseline = metric === 'MCC' ? 0 : scale.min
+    return {
+      height: (Math.abs(value - baseline) / range) * 100,
+      bottom: ((Math.min(value, baseline) - scale.min) / range) * 100,
+    }
+  }
   return (
     <div
       className="comparison-chart"
       role="img"
-      aria-label={`Comparação de ${metricInfo[metric].label} entre algoritmos`}
+      aria-label={`Comparação de ${metricInfo[metric].label} entre algoritmos. ${scale.label}`}
     >
       <div className="chart-scale" aria-hidden="true">
-        <span>{isTime ? 'maior' : '100%'}</span>
-        <span>{isTime ? 'escala log' : '75%'}</span>
-        <span>{isTime ? '' : '50%'}</span>
-        <span>0</span>
+        {scale.ticks.map(tick => <span key={tick}>{scale.format(tick)}</span>)}
       </div>
       <div className="chart-grid">
+        <div className="chart-lines" aria-hidden="true">
+          {scale.ticks.map(tick => <span key={tick} className={tick === 0 ? 'zero-line' : ''} />)}
+        </div>
         {algorithmIds.map(algorithm => (
           <div className="bar-group" key={algorithm}>
             <div className="bars">
               {visibleDatasets.map(dataset => {
                 const value = getResult(dataset, algorithm).summary[metric].mean
-                const height = barHeight(value)
+                const { height, bottom } = barGeometry(value)
                 const winner = bestFor(dataset, metric).algorithm === algorithm
                 return (
                   <div className="bar-wrap" key={dataset}>
-                    <span className="bar-value" style={{ bottom: `calc(${height}% + 3px)` }}>
+                    <span className="bar-value" style={{ bottom: `calc(${bottom + height}% + 3px)` }}>
                       {displayMetric(metric, value)}
                     </span>
                     <div
                       className={`bar ${winner ? 'winner' : ''}`}
-                      style={{ height: `${height}%`, background: datasetInfo[dataset].color }}
+                      style={{ height: `${height}%`, bottom: `${bottom}%`, background: datasetInfo[dataset].color }}
                     >
                       {winner && <span className="winner-dot">★</span>}
                     </div>
@@ -196,6 +285,7 @@ function ComparisonChart({ metric, scope }: { metric: MetricId; scope: Scope }) 
           </div>
         ))}
       </div>
+      <span className="axis-label">{scale.label}</span>
     </div>
   )
 }
@@ -272,7 +362,7 @@ function DatasetDetail({ result, selectedMetric }: { result: ModelResult; select
           </div>
         </div>
         <span className="rank-chip">
-          {bestFor(result.dataset, 'Acuracia').algorithm === result.algorithm ? '1º em acurácia' : 'resultado validado'}
+          {bestFor(result.dataset, 'MCC').algorithm === result.algorithm ? 'maior MCC médio' : 'resultado validado'}
         </span>
       </header>
       <div className="metric-grid">
@@ -342,7 +432,7 @@ function MetricTable({ scope }: { scope: Scope }) {
                   return (
                     <td key={metric} className={isBest ? 'best-cell' : ''}>
                       {displayMetric(metric, result.summary[metric].mean)}
-                      {isBest && <small>melhor</small>}
+                      {isBest && <small>{metricInfo[metric].better === 'high' ? 'maior média' : 'menor média'}</small>}
                     </td>
                   )
                 })}
@@ -357,11 +447,10 @@ function MetricTable({ scope }: { scope: Scope }) {
 
 function App() {
   const [scope, setScope] = useState<Scope>('all')
-  const [metric, setMetric] = useState<MetricId>('Acuracia')
+  const [metric, setMetric] = useState<MetricId>('MCC')
   const [algorithm, setAlgorithm] = useState<AlgorithmId>('naive_bayes')
-  const clevelandBest = bestFor('cleveland', 'Acuracia'),
-    kaggleBest = bestFor('kaggle', 'Acuracia')
-  const globalAuc = useMemo(() => [...results].sort((a, b) => b.summary.ROC_AUC.mean - a.summary.ROC_AUC.mean)[0], [])
+  const clevelandBest = bestFor('cleveland', 'MCC'),
+    kaggleBest = bestFor('kaggle', 'MCC')
   return (
     <div className="app-shell">
       <Sidebar />
@@ -382,32 +471,32 @@ function App() {
         </section>
         <section className="summary-grid">
           <SummaryCard
-            eyebrow="MELHOR • CLEVELAND"
-            value={pct(clevelandBest.summary.Acuracia.mean)}
+            eyebrow="MAIOR MCC MÉDIO • CLEVELAND"
+            value={displayMetric('MCC', clevelandBest.summary.MCC.mean)}
             label={algorithmInfo[clevelandBest.algorithm].name}
             accent="#7B78DB"
-            foot="Acurácia média"
+            foot="Média descritiva de 3 repetições"
           />
           <SummaryCard
-            eyebrow="MELHOR • KAGGLE"
-            value={pct(kaggleBest.summary.Acuracia.mean)}
+            eyebrow="MAIOR MCC MÉDIO • KAGGLE"
+            value={displayMetric('MCC', kaggleBest.summary.MCC.mean)}
             label={algorithmInfo[kaggleBest.algorithm].name}
             accent="#27A59A"
-            foot="Acurácia média"
+            foot="Média descritiva de 3 repetições"
           />
           <SummaryCard
-            eyebrow="MAIOR DISCRIMINAÇÃO"
-            value={pct(globalAuc.summary.ROC_AUC.mean)}
-            label={algorithmInfo[globalAuc.algorithm].name}
+            eyebrow="MEDIDA PRINCIPAL"
+            value="MCC"
+            label="Hipótese do artigo"
             accent="#F28C6F"
-            foot={`ROC-AUC · ${datasetInfo[globalAuc.dataset].name}`}
+            foot="Acurácia mantida como métrica complementar"
           />
           <article className="insight-card">
             <span className="insight-icon">↗</span>
             <div>
               <span className="eyebrow">PRINCIPAL ACHADO</span>
-              <strong>A base muda o modelo vencedor</strong>
-              <small>Naive Bayes lidera no Cleveland; Random Forest, no Kaggle.</small>
+              <strong>A ordenação por MCC varia entre as bases</strong>
+              <small>Naive Bayes tem a maior média no Cleveland; Random Forest, no Kaggle. Comparação descritiva.</small>
             </div>
           </article>
         </section>
@@ -442,8 +531,8 @@ function App() {
           </div>
           <ComparisonChart metric={metric} scope={scope} />
           <div className="chart-caption">
-            <span>★ Melhor resultado na base</span>
-            <span>Para Brier, Log loss e Tempo, valores menores são melhores.</span>
+            <span>★ Maior ou menor média observada, conforme a métrica</span>
+            <span>O destaque é descritivo e não indica significância estatística.</span>
           </div>
         </section>
         <section className="panel models-panel" id="models">
@@ -481,7 +570,7 @@ function App() {
             <div>
               <span className="section-kicker">VISÃO TABULAR</span>
               <h2>Todas as métricas</h2>
-              <p>O destaque indica o melhor valor em cada coluna</p>
+              <p>O destaque indica a maior ou menor média observada, conforme a métrica</p>
             </div>
             <button className="export-button" onClick={() => window.print()}>
               <Icon name="download" /> Exportar relatório
@@ -497,9 +586,9 @@ function App() {
             <div>
               <strong>Como ler este painel</strong>
               <p>
-                Os valores exibidos são médias de 3 repetições. “±” representa o desvio-padrão. Sensibilidade mede a
-                detecção de pacientes com doença; especificidade, a identificação de pacientes sem doença. MCC e ROC-AUC
-                sintetizam a qualidade preditiva, enquanto Brier e Log loss avaliam a calibração probabilística.
+                Os valores exibidos são médias de 3 repetições e “±” representa o desvio-padrão. O MCC é a medida principal
+                da hipótese do artigo. Percentuais usam escala de 0 a 100%; MCC, Brier e Log loss aparecem como valores
+                numéricos, e o tempo usa escala log10. Os destaques são descritivos e não representam teste de significância.
               </p>
             </div>
           </div>
