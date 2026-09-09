@@ -1,0 +1,5 @@
+"Protocolo","Execucao","Algoritmo","Folds_Externos","Predicoes_OOF","Status"
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","naive_bayes",15,909,"valido"
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","decision_trees",15,909,"valido"
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","random_forest",15,909,"valido"
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","svm",15,909,"valido"

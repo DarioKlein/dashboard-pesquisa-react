@@ -1,17 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
 :root {
   font-family: 'Manrope', system-ui, sans-serif;
-  color: #17233c;
-  background: #f4f6fa;
+  color: var(--color-text);
+  background: var(--color-background);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --navy: #121d36;
-  --muted: #6e7890;
-  --border: #e2e6ef;
-  --surface: #fff;
-  --purple: #7b78db;
-  --teal: #27a59a;
 }
 * {
   box-sizing: border-box;

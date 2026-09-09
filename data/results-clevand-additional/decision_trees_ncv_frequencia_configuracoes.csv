@@ -1,0 +1,5 @@
+"Protocolo","Execucao","Base","Algoritmo","Configuracao","Frequencia"
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees","arvore_cp_0.005_profundidade_3",8
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees","arvore_cp_0.005_profundidade_5",5
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees","arvore_cp_0.01_profundidade_5",1
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees","arvore_cp_0.02_profundidade_5",1

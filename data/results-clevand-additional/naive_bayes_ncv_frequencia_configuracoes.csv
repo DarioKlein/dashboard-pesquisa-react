@@ -1,0 +1,3 @@
+"Protocolo","Execucao","Base","Algoritmo","Configuracao","Frequencia"
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","naive_bayes","gaussiano",13
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","naive_bayes","kde",2

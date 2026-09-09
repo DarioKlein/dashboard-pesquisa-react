@@ -1,0 +1,16 @@
+"Protocolo","Execucao","Base","Algoritmo","Repeticao","Fold_Externo","Semente_Externa","Semente_Interna","Semente_Reajuste","N_Treino_Externo","N_Teste_Externo","Configuracao_Selecionada","MCC_Interno_Medio","cp","profundidade_maxima"
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",1,1,20260804,310101,12110499,242,61,"arvore_cp_0.005_profundidade_5",0.550688490772039,0.005,5
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",1,2,20260804,310102,12120199,242,61,"arvore_cp_0.005_profundidade_3",0.510199348291991,0.005,3
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",1,3,20260804,310103,12130499,243,60,"arvore_cp_0.005_profundidade_5",0.676310510926842,0.005,5
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",1,4,20260804,310104,12140499,243,60,"arvore_cp_0.005_profundidade_5",0.555052603470305,0.005,5
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",1,5,20260804,310105,12150199,242,61,"arvore_cp_0.005_profundidade_3",0.559146854408117,0.005,3
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",2,1,20260805,310201,12210499,243,60,"arvore_cp_0.005_profundidade_5",0.576851464053317,0.005,5
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",2,2,20260805,310202,12220199,242,61,"arvore_cp_0.005_profundidade_3",0.550490604784243,0.005,3
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",2,3,20260805,310203,12230199,242,61,"arvore_cp_0.005_profundidade_3",0.535762309419759,0.005,3
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",2,4,20260805,310204,12240699,243,60,"arvore_cp_0.02_profundidade_5",0.527271357018547,0.02,5
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",2,5,20260805,310205,12250199,242,61,"arvore_cp_0.005_profundidade_3",0.55058545939801,0.005,3
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",3,1,20260806,310301,12310199,242,61,"arvore_cp_0.005_profundidade_3",0.53378039103242,0.005,3
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",3,2,20260806,310302,12320499,243,60,"arvore_cp_0.005_profundidade_5",0.498768872441971,0.005,5
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",3,3,20260806,310303,12330599,242,61,"arvore_cp_0.01_profundidade_5",0.582407332594685,0.01,5
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",3,4,20260806,310304,12340199,242,61,"arvore_cp_0.005_profundidade_3",0.523553208984569,0.005,3
+"cleveland_ncv_5x3_inner3_v1","cleveland_ncv_5x3_inner3_v1","Cleveland","decision_trees",3,5,20260806,310305,12350199,243,60,"arvore_cp_0.005_profundidade_3",0.560397317750367,0.005,3

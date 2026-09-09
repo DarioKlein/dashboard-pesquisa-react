@@ -1,85 +1,103 @@
 # CardioBench
 
-Dashboard interativo para análise e comparação de algoritmos de aprendizado de máquina aplicados à predição de doença cardíaca.
-
-O projeto apresenta os resultados experimentais obtidos nas bases **Cleveland** e **Kaggle**, permitindo comparar o desempenho, a estabilidade, os erros de classificação e as melhores configurações de quatro algoritmos.
+Dashboard React para análise de classificadores aplicados à predição de doença cardíaca. A interface mantém duas etapas experimentais separadas, preservando as unidades de agregação e as limitações metodológicas de cada análise.
 
 ![Prévia do CardioBench](public/og.png)
 
-## Funcionalidades
+## Etapas experimentais
 
-- Comparação direta entre as bases Cleveland e Kaggle.
-- Filtro para visualizar uma base isoladamente ou ambas em conjunto.
-- Seleção da métrica utilizada no gráfico principal.
-- MCC como medida principal e seleção inicial do gráfico.
-- Escalas específicas para percentuais, coeficientes, perdas e tempo de execução.
-- Análise individual de cada algoritmo.
-- Exibição de médias e desvios-padrão das repetições.
-- Matrizes de confusão médias.
-- Visualização da estabilidade entre as repetições.
-- Identificação da melhor configuração de hiperparâmetros.
-- Tabela comparativa com destaque para o melhor resultado de cada métrica.
-- Geração de uma versão imprimível por meio da opção **Exportar relatório**.
-- Interface responsiva para computadores, tablets e dispositivos móveis.
+### 1. Etapa exploratória
 
-## Algoritmos avaliados
+- Bases Cleveland e Kaggle.
+- Validação cruzada estratificada com 5 partições e 3 repetições.
+- Comparação descritiva de quatro algoritmos.
+- Resumos agregados por 3 repetições OOF.
+- Matriz de confusão média, estabilidade por repetição e configuração selecionada.
+- Resultados sujeitos a otimismo de seleção, pois seleção e resumo usam as mesmas avaliações.
+
+### 2. Avaliação complementar — Cleveland
+
+- Somente a base Cleveland, com os mesmos 303 registros da etapa exploratória.
+- Validação cruzada aninhada com 5 partições externas, 3 repetições e 3 partições internas.
+- Seleção de hiperparâmetros nos dados internos e avaliação em testes externos reservados.
+- Resumos agregados por 15 folds externos, apresentados como média ± desvio-padrão.
+- 909 predições OOF no total: 303 registros × 3 repetições.
+- Matrizes de confusão exatas por repetição (R1, R2 e R3), cada uma somando 303 observações.
+- Frequência das configurações selecionadas nos 15 treinamentos externos.
+- Tempos separados em seleção, reajuste, predição e total por fold externo.
+- Comparações pareadas de MCC com correção para reamostragem e ajuste de Holm.
+
+A avaliação complementar não é validação em uma população externa independente. A base Kaggle permanece apenas na etapa exploratória por viabilidade computacional.
+
+## Algoritmos
 
 - Árvore de Decisão
 - Naive Bayes
 - Random Forest
-- Support Vector Machine — SVM
+- SVM linear
 
-## Bases de dados
+## Métricas
 
-| Base      | Registros | Característica no dashboard                                                      |
-| --------- | --------: | -------------------------------------------------------------------------------- |
-| Cleveland |       303 | Base clínica menor, com maior desempenho médio dos modelos                       |
-| Kaggle    |    68.610 | Base de maior escala, utilizada para avaliar generalização e custo computacional |
+O MCC é a medida principal e aparece selecionado por padrão. A acurácia continua disponível como medida complementar.
 
-Os resultados apresentados correspondem à média de **três repetições** do processo de validação cruzada.
+| Métrica | Apresentação | Melhor direção |
+| --- | --- | --- |
+| Acurácia, sensibilidade, especificidade, precisão, F1, ROC-AUC e acurácia balanceada | Percentual | Maior |
+| MCC | Coeficiente de −1 a 1 | Maior |
+| Brier score | Escala numérica observada | Menor |
+| Log loss | Escala numérica observada, sem limite superior fixo em 1 | Menor |
+| Tempos | Segundos com escala log10 no gráfico | Menor |
 
-> A pasta do projeto utiliza o nome histórico `results-clevand` para armazenar os resultados da base Cleveland.
+Os cartões e destaques identificam a maior ou menor **média observada** conforme a métrica. Eles não indicam superioridade global nem diferença estatisticamente significativa.
 
-## Métricas apresentadas
+## Inferência da etapa complementar
 
-| Métrica             | Interpretação                                                                        |
-| ------------------- | ------------------------------------------------------------------------------------ |
-| Acurácia            | Proporção total de classificações corretas                                           |
-| Sensibilidade       | Capacidade de identificar corretamente pacientes com doença                          |
-| Especificidade      | Capacidade de identificar corretamente pacientes sem doença                          |
-| Precisão            | Proporção de predições positivas que realmente representam doença                    |
-| F1-score            | Média harmônica entre precisão e sensibilidade                                       |
-| MCC                 | Coeficiente de correlação de Matthews, adequado para avaliar classificações binárias |
-| ROC-AUC             | Capacidade do modelo de separar as duas classes em diferentes limiares               |
-| Brier score         | Qualidade e calibração das probabilidades previstas; valores menores são melhores    |
-| Log loss            | Penalização de previsões probabilísticas incorretas; valores menores são melhores    |
-| Acurácia balanceada | Média entre sensibilidade e especificidade                                           |
-| Tempo de execução   | Custo computacional médio do treinamento e da avaliação                              |
+A seção inferencial usa exclusivamente os arquivos exportados pelo experimento complementar:
 
-O símbolo `±` exibido no dashboard representa o **desvio-padrão** entre as repetições.
+- `mcc_comparacoes_pareadas.csv`;
+- `mcc_decisao_global.csv`;
+- `validacao_resultados.csv`.
 
-## Principais resultados descritivos
+São exibidas seis comparações bilaterais de MCC, com 14 graus de liberdade e p-valor ajustado por Holm. A decisão usa o valor integral exportado, não o número arredondado na tela. Nos resultados atuais, nenhuma das seis comparações é significativa a 5%; portanto, a hipótese nula não foi rejeitada. Isso não demonstra equivalência entre os modelos.
 
-- Na base **Cleveland**, o Naive Bayes apresentou o maior MCC médio observado: **0,669**.
-- Na base **Kaggle**, o Random Forest apresentou o maior MCC médio observado: **0,461**.
-- A ordenação por MCC muda entre as bases, reforçando que o desempenho descritivo depende das características e da escala do conjunto de dados.
-- O SVM apresentou custo computacional elevado na base Kaggle quando comparado aos demais algoritmos.
+Se os arquivos estiverem ausentes, incompletos ou marcados como inválidos, o dashboard informa que a análise está indisponível e não produz conclusão inferencial.
 
-Esses resultados representam exclusivamente os experimentos armazenados na pasta `data`. Os destaques não indicam superioridade global nem diferença estatisticamente significativa entre os algoritmos.
+## Estrutura dos dados
 
-## Estrutura dos resultados
+```text
+data/
+├── results-clevand/             # etapa exploratória · Cleveland
+├── results-kaggle/              # etapa exploratória · Kaggle
+└── results-clevand-additional/  # validação aninhada · Cleveland
+```
 
-Cada combinação de base e algoritmo contém cinco arquivos CSV:
+Na etapa exploratória, o dashboard lê os arquivos de resumo, ranking e resultados por repetição. Na etapa complementar, lê os resumos do modelo, resultados por fold externo, resultados OOF por repetição, frequências e configurações selecionadas. As duas etapas são normalizadas separadamente em `src/data/results.ts` e nunca são combinadas em uma média global.
 
-| Arquivo                             | Conteúdo                                                 |
-| ----------------------------------- | -------------------------------------------------------- |
-| `*_cv_resumo_modelo.csv`            | Média e desvio-padrão das métricas do modelo selecionado |
-| `*_cv_resultados_repeticoes.csv`    | Resultado da melhor configuração em cada repetição       |
-| `*_cv_resultados_configuracoes.csv` | Resultados de todas as configurações avaliadas           |
-| `*_cv_ranking_configuracoes.csv`    | Ranking agregado das configurações de hiperparâmetros    |
-| `*_cv_predicoes_oof.csv`            | Predições out-of-fold por registro                       |
+## Arquitetura
 
-O dashboard carrega os arquivos de resumo, ranking e repetições. Os arquivos de predições individuais permanecem disponíveis para análises posteriores, mas não são incluídos no bundle da aplicação.
+O projeto é organizado por responsabilidade:
+
+- `components/`: componentes React agrupados por funcionalidade;
+- `data/`: catálogo do domínio, tipos, parser CSV e carregamento dos resultados;
+- `lib/`: cálculos, formatação, escalas e validações reutilizáveis;
+- `styles/`: tokens visuais e folhas de estilo por contexto;
+- `App.tsx`: estado da tela e composição das seções.
+
+Os componentes não leem CSVs diretamente. A camada de dados normaliza as exportações, enquanto a camada `lib` concentra regras reutilizáveis em módulos de seleção, formatação, escalas, configurações e validação inferencial.
+
+## Funcionalidades
+
+- Alternância explícita entre as duas etapas.
+- Comparação algoritmo por algoritmo e seleção de métrica.
+- Escalas coerentes com cada tipo de medida.
+- Barras de desvio-padrão para métricas preditivas.
+- Perfil detalhado por classificador.
+- Matrizes de confusão e séries de estabilidade.
+- Tabela das dez métricas preditivas.
+- Custo computacional separado na etapa complementar.
+- Tabela inferencial com os seis pares e decisão global.
+- Relatório imprimível com identificação da etapa, base e unidade de resumo.
+- Layout responsivo para computadores, tablets e celulares.
 
 ## Tecnologias
 
@@ -89,47 +107,25 @@ O dashboard carrega os arquivos de resumo, ranking e repetições. Os arquivos d
 - CSS responsivo
 - ESLint
 
-Não é utilizada uma API ou um banco de dados durante a execução. Os dados são processados a partir dos arquivos CSV no momento da compilação.
+Não há API ou banco de dados em execução. Os CSVs locais são incorporados e processados durante a compilação.
 
 ## Como executar
 
-### Pré-requisitos
-
-- Node.js 20 ou superior
-- npm
-
-### Instalação
+Pré-requisitos: Node.js 20 ou superior e npm.
 
 ```bash
 npm install
-```
-
-### Ambiente de desenvolvimento
-
-```bash
 npm run dev
 ```
 
-O Vite exibirá no terminal o endereço local da aplicação, normalmente `http://localhost:5173`.
+O Vite informa o endereço local, normalmente `http://localhost:5173`.
 
-### Compilação para produção
-
-```bash
-npm run build
-```
-
-Os arquivos otimizados serão gerados na pasta `dist`.
-
-### Visualizar a compilação
+Comandos adicionais:
 
 ```bash
-npm run preview
-```
-
-### Verificação de qualidade
-
-```bash
-npm run lint
+npm run lint      # análise estática
+npm run build     # compilação de produção em dist/
+npm run preview   # prévia local da compilação
 ```
 
 ## Estrutura do projeto
@@ -137,32 +133,42 @@ npm run lint
 ```text
 dashboard-pesquisa/
 ├── data/
-│   ├── results-clevand/
-│   └── results-kaggle/
 ├── public/
 ├── src/
-│   ├── App.tsx       # Componentes e interface do dashboard
-│   ├── App.css       # Layout e estilos dos componentes
-│   ├── data.ts       # Leitura, normalização e tipagem dos CSVs
-│   ├── index.css     # Estilos globais
-│   └── main.tsx      # Inicialização da aplicação React
+│   ├── components/
+│   │   ├── comparison/
+│   │   ├── inference/
+│   │   ├── layout/
+│   │   ├── methodology/
+│   │   ├── metrics/
+│   │   ├── models/
+│   │   ├── summary/
+│   │   └── ui/
+│   ├── data/
+│   │   ├── catalog.ts
+│   │   ├── csv.ts
+│   │   ├── results.ts
+│   │   └── types.ts
+│   ├── lib/
+│   │   ├── chart.ts
+│   │   ├── configuration.ts
+│   │   ├── formatters.ts
+│   │   ├── inference.ts
+│   │   ├── selectors.ts
+│   │   └── dashboard.ts
+│   ├── styles/
+│   │   ├── tokens.css
+│   │   ├── layout.css
+│   │   ├── comparison.css
+│   │   └── ...
+│   ├── App.tsx       # estado e composição da tela
+│   ├── index.css     # reset e estilos globais
+│   └── main.tsx      # inicialização do React
 ├── index.html
 ├── package.json
 └── vite.config.ts
 ```
 
-## Observações metodológicas
-
-- As médias e os desvios-padrão são lidos diretamente dos resultados experimentais.
-- O MCC é a medida principal definida para as hipóteses; a acurácia permanece disponível como medida complementar.
-- A melhor configuração de cada algoritmo corresponde à primeira posição do respectivo arquivo de ranking.
-- As matrizes de confusão apresentam a média arredondada das três repetições.
-- Para acurácia, sensibilidade, especificidade, precisão, F1, MCC e ROC-AUC, valores maiores são melhores.
-- Para Brier score, Log loss e tempo de execução, valores menores são melhores.
-- MCC utiliza o intervalo de −1 a 1; Brier e Log loss usam escalas numéricas ajustadas aos valores observados, sem limite superior fixo para Log loss.
-- O tempo de execução é apresentado em escala logarítmica de base 10.
-- Comparações entre Cleveland e Kaggle devem considerar a diferença expressiva de tamanho e distribuição entre as bases.
-
 ## Aviso
 
-Este dashboard possui finalidade acadêmica e exploratória. Seus resultados não devem ser interpretados como diagnóstico médico nem utilizados isoladamente em decisões clínicas.
+O CardioBench tem finalidade acadêmica. Os resultados não constituem diagnóstico médico e não devem ser usados isoladamente em decisões clínicas.

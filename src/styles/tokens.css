@@ -1,0 +1,29 @@
+:root {
+  --color-navy: #121d36;
+  --color-text: #17233c;
+  --color-muted: #6e7890;
+  --color-subtle: #8b95a8;
+  --color-border: #e2e6ef;
+  --color-surface: #ffffff;
+  --color-background: #f4f6fa;
+  --color-purple: #7b78db;
+  --color-teal: #27a59a;
+  --color-coral: #f28c6f;
+  --color-gold: #e7b64c;
+  --color-success: #226e65;
+  --color-danger: #9a5a4a;
+
+  --shadow-card: 0 6px 22px rgba(20, 31, 55, 0.04);
+  --shadow-panel: 0 8px 28px rgba(20, 31, 55, 0.045);
+  --radius-control: 9px;
+  --radius-card: 14px;
+  --radius-panel: 15px;
+
+  /* Aliases preservados para os módulos visuais existentes. */
+  --navy: var(--color-navy);
+  --muted: var(--color-muted);
+  --border: var(--color-border);
+  --surface: var(--color-surface);
+  --purple: var(--color-purple);
+  --teal: var(--color-teal);
+}

@@ -1,0 +1,223 @@
+.legend {
+  display: flex;
+  gap: 18px;
+  padding-top: 11px;
+  color: #677188;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+.metric-tabs {
+  display: flex;
+  gap: 4px;
+  margin: 21px 0 14px;
+  padding: 4px;
+  overflow-x: auto;
+  border-radius: 9px;
+  background: #f4f6fa;
+  scrollbar-width: none;
+}
+.metric-tabs button {
+  flex: 1 0 auto;
+  padding: 9px 11px;
+  color: #717b91;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.metric-tabs button.active {
+  color: #34356c;
+  background: white;
+  box-shadow: 0 2px 8px rgba(34, 43, 65, 0.09);
+}
+.comparison-chart {
+  position: relative;
+  height: 282px;
+  padding-left: 48px;
+}
+.chart-scale {
+  position: absolute;
+  inset: 0 auto 48px 0;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: right;
+  color: #8b95a8;
+  font:
+    400 0.6875rem/1.2 'DM Mono',
+    monospace;
+}
+.chart-grid {
+  position: relative;
+  height: 234px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  border-bottom: 1px solid #dfe3eb;
+}
+.chart-lines {
+  position: absolute;
+  inset: 0 0 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.chart-lines span {
+  width: 100%;
+  border-top: 1px solid #edf0f5;
+}
+.chart-lines span.zero-line {
+  border-top-color: #cbd2df;
+}
+.bar-group {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+}
+.bars {
+  height: 186px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 7px;
+}
+.bar-wrap {
+  position: relative;
+  width: min(42px, 35%);
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.bar {
+  position: relative;
+  width: 100%;
+  min-height: 4px;
+  border-radius: 5px 5px 1px 1px;
+  opacity: 0.88;
+  transition:
+    height 0.45s cubic-bezier(0.22, 0.8, 0.25, 1),
+    opacity 0.2s;
+}
+.bar:hover {
+  opacity: 1;
+}
+.bar.winner {
+  box-shadow:
+    0 0 0 2px white,
+    0 0 0 3px #e7b64c;
+}
+.winner-dot {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  translate: -50% 0;
+  color: #e3ad35;
+  font-size: 0.75rem;
+}
+.bar-value {
+  position: absolute;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  color: #4f5b72;
+  font:
+    500 0.6875rem 'DM Mono',
+    monospace;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    bottom 0.45s,
+    opacity 0.2s;
+}
+.bar-wrap:hover .bar-value {
+  opacity: 1;
+}
+.bar-label {
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: #536078;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.bar-label b,
+.algorithm-tabs b,
+.table-wrap td b {
+  display: grid;
+  place-items: center;
+  color: white;
+  border-radius: 5px;
+  font-size: 0.625rem;
+}
+.bar-label b {
+  width: 25px;
+  height: 25px;
+}
+.axis-label {
+  position: absolute;
+  left: 48px;
+  bottom: 10px;
+  color: #69758c;
+  font:
+    500 0.6875rem/1.2 'DM Mono',
+    monospace;
+}
+.chart-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 0 0 48px;
+  color: #7f899d;
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+.chart-caption span:first-child {
+  color: #b7861d;
+}
+.error-bar {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  width: 1px;
+  min-height: 2px;
+  translate: -50% 0;
+  border-left: 1px solid #4d5870;
+  pointer-events: none;
+}
+.error-bar::before,
+.error-bar::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  width: 9px;
+  border-top: 1px solid #4d5870;
+}
+.error-bar::before { top: 0; }
+.error-bar::after { bottom: 0; }
+.bar-wrap.unavailable {
+  align-items: center;
+  color: #a4acbc;
+  font: 500 0.75rem 'DM Mono', monospace;
+}
+

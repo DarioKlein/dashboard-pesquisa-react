@@ -1,0 +1,43 @@
+.sparkline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  color: #7c879b;
+  font:
+    400 0.6875rem 'DM Mono',
+    monospace;
+}
+.sparkline svg {
+  grid-column: 1/-1;
+  width: 100%;
+  height: 50px;
+  overflow: visible;
+}
+.sparkline path {
+  fill: none;
+  stroke: #e3e7ef;
+}
+.sparkline polyline {
+  fill: none;
+  stroke: var(--purple);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sparkline circle {
+  fill: white;
+  stroke: var(--purple);
+  stroke-width: 2;
+}
+.sparkline {
+  display: block;
+  text-align: initial;
+}
+.spark-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+  color: #7c879b;
+  font: 400 0.6875rem 'DM Mono', monospace;
+}
+

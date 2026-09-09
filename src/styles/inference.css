@@ -1,0 +1,59 @@
+.inference-status {
+  flex: 0 0 auto;
+  padding: 7px 10px;
+  border-radius: 18px;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.45px;
+}
+.inference-status.valid {
+  color: #226e65;
+  background: #e7f6f2;
+}
+.inference-status.invalid {
+  color: #9a5a4a;
+  background: #fff0eb;
+}
+.inference-conclusion {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.4fr) 1fr;
+  gap: 18px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 15px 17px;
+  color: #d7deea;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #202d4b, #141f39);
+}
+.inference-conclusion > span {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 800;
+}
+.inference-conclusion p {
+  color: #b8c2d3;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+.inference-table td:first-child {
+  min-width: 220px;
+}
+.inference-table td {
+  min-width: 112px;
+}
+.evidence {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font: 700 0.6875rem 'Manrope', sans-serif;
+}
+.evidence.no {
+  color: #69748a;
+  background: #eef1f5;
+}
+.evidence.yes {
+  color: #226e65;
+  background: #e3f5f1;
+}
+

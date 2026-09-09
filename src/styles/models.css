@@ -1,0 +1,165 @@
+.algorithm-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  margin: 21px 0 18px;
+}
+.algorithm-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 11px;
+  color: #5e6980;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: white;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.algorithm-tabs button.active {
+  color: #252e48;
+  border-color: #bab9ed;
+  background: #f6f5ff;
+  box-shadow: inset 0 -2px var(--purple);
+}
+.algorithm-tabs b {
+  width: 28px;
+  height: 28px;
+}
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.details-grid:has(.dataset-detail:only-child) {
+  grid-template-columns: 1fr;
+}
+.dataset-detail {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fbfcfe;
+}
+.dataset-detail > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.dataset-detail > header > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.dataset-detail header i {
+  width: 8px;
+  height: 32px;
+  border-radius: 5px;
+}
+.dataset-detail header strong,
+.dataset-detail header small {
+  display: block;
+}
+.dataset-detail header strong {
+  font-size: 0.9375rem;
+}
+.dataset-detail header small {
+  margin-top: 3px;
+  color: #7f899e;
+  font-size: 0.75rem;
+}
+.rank-chip {
+  padding: 6px 9px;
+  color: #59657c;
+  border: 1px solid #d9dee8;
+  border-radius: 20px;
+  background: white;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin: 14px 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--border);
+}
+.metric-grid > div {
+  padding: 12px;
+  background: white;
+  transition: background 0.2s;
+}
+.metric-grid > div.selected {
+  background: #f2f1ff;
+}
+.metric-grid span,
+.metric-grid strong,
+.metric-grid small {
+  display: block;
+}
+.metric-grid span {
+  color: #737e93;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.metric-grid strong {
+  margin-top: 6px;
+  font:
+    500 1rem 'DM Mono',
+    monospace;
+  color: #24304a;
+}
+.metric-grid small {
+  margin-top: 4px;
+  color: #7f899c;
+  font:
+    400 0.6875rem 'DM Mono',
+    monospace;
+}
+.detail-split {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 15px;
+}
+.detail-split > div {
+  min-width: 0;
+}
+.subheading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 9px;
+}
+.subheading span {
+  color: #4f5a72;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.subheading small {
+  color: #7f899d;
+  font-size: 0.6875rem;
+}
+.detail-split > div:last-child .subheading {
+  display: block;
+}
+.detail-split > div:last-child .subheading small {
+  display: block;
+  margin-top: 4px;
+  line-height: 1.35;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+

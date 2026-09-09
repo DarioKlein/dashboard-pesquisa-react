@@ -1,0 +1,68 @@
+.methodology {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  margin: 26px 0 12px;
+  padding: 22px 24px;
+  color: #c9d0de;
+  border-radius: 14px;
+  background: var(--navy);
+}
+.methodology > div:first-child {
+  display: flex;
+  gap: 13px;
+}
+.method-icon {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  color: #8d89e8;
+  border-radius: 8px;
+  background: rgba(123, 120, 219, 0.13);
+}
+.method-icon svg {
+  width: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.methodology strong {
+  font-size: 0.9375rem;
+}
+.methodology p {
+  margin-top: 9px;
+  max-width: 70ch;
+  color: #aeb8ca;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+.dataset-facts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.dataset-facts span {
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 7px;
+}
+.dataset-facts small,
+.dataset-facts strong {
+  display: block;
+}
+.dataset-facts small {
+  color: #909bb0;
+  font-size: 0.6875rem;
+}
+.dataset-facts strong {
+  margin-top: 5px;
+  color: #e2e6ee;
+  font:
+    500 0.8125rem 'DM Mono',
+    monospace;
+}
+
