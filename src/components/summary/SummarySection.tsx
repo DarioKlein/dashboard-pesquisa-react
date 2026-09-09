@@ -13,7 +13,19 @@ const accents = {
   coral: 'var(--color-coral)',
 } as const
 
-function InsightCard({ stage, inferenceIsValid }: { stage: StageId; inferenceIsValid: boolean }) {
+type InsightCardProps = {
+  stage: StageId
+  inferenceIsValid: boolean
+  comparisonCount: number
+  significantCount: number
+}
+
+function InsightCard({
+  stage,
+  inferenceIsValid,
+  comparisonCount,
+  significantCount,
+}: InsightCardProps) {
   const isNested = stage === 'nested'
 
   return (
@@ -33,7 +45,7 @@ function InsightCard({ stage, inferenceIsValid }: { stage: StageId; inferenceIsV
         <small>
           {isNested
             ? inferenceIsValid
-              ? '0 de 6 comparações significativas após Holm. O resultado não demonstra equivalência.'
+              ? `${significantCount} de ${comparisonCount} comparações significativas após Holm. O resultado não demonstra equivalência.`
               : 'Validação dos arquivos necessária.'
             : 'Naive Bayes tem a maior média no Cleveland; Random Forest, no Kaggle. Sem inferência de significância.'}
         </small>
@@ -46,7 +58,8 @@ export function SummarySection({ stage }: { stage: StageId }) {
   const clevelandBest = getBestResult(stage, 'cleveland', 'MCC')
   const kaggleBest =
     stage === 'exploratory' ? getBestResult('exploratory', 'kaggle', 'MCC') : undefined
-  const inferenceIsValid = validateInferenceData().valid
+  const { comparisonCount, significantCount, valid: inferenceIsValid } =
+    validateInferenceData()
 
   return (
     <section className="summary-grid">
@@ -105,7 +118,12 @@ export function SummarySection({ stage }: { stage: StageId }) {
           />
         </>
       )}
-      <InsightCard stage={stage} inferenceIsValid={inferenceIsValid} />
+      <InsightCard
+        stage={stage}
+        inferenceIsValid={inferenceIsValid}
+        comparisonCount={comparisonCount}
+        significantCount={significantCount}
+      />
     </section>
   )
 }

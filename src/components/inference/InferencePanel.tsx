@@ -6,19 +6,21 @@ import {
 import {
   algorithmFromCsv,
   formatDecimal,
+  formatPercentage,
   validateInferenceData,
 } from '../../lib/dashboard'
 import { PanelHeading } from '../ui/PanelHeading'
 
 export function InferencePanel() {
-  const { alpha, valid } = validateInferenceData()
-  const significantCount = valid
-    ? mccComparisons.filter((row) => parseFinite(row.P_Holm) < alpha).length
-    : 0
+  const { alpha, comparisonCount, significantCount, valid } =
+    validateInferenceData()
+  const significanceLevel = formatPercentage(alpha, 0)
 
   const status = (
     <span className={`inference-status ${valid ? 'valid' : 'invalid'}`}>
-      {valid ? `${significantCount}/6 significativas` : 'Análise indisponível'}
+      {valid
+        ? `${significantCount}/${comparisonCount} significativas`
+        : 'Análise indisponível'}
     </span>
   )
 
@@ -27,7 +29,7 @@ export function InferencePanel() {
       <PanelHeading
         kicker="ANÁLISE INFERENCIAL"
         title="Comparações pareadas de MCC"
-        description="Teste t pareado com correção para reamostragem, 14 graus de liberdade e ajuste de Holm."
+        description={`Teste t pareado com correção para reamostragem, 14 graus de liberdade e ajuste de Holm (${significanceLevel}).`}
         action={status}
       />
 
@@ -41,7 +43,7 @@ export function InferencePanel() {
             </span>
             <p>
               {significantCount === 0
-                ? 'Não foram encontradas diferenças estatisticamente significativas de MCC entre os classificadores após o ajuste de Holm, ao nível de 5%. Esse resultado não demonstra equivalência entre os modelos.'
+                ? `Não foram encontradas diferenças estatisticamente significativas de MCC entre os classificadores após o ajuste de Holm, ao nível de ${significanceLevel}. Esse resultado não demonstra equivalência entre os modelos.`
                 : `${significantCount} comparação(ões) apresentou(aram) p ajustado inferior a ${formatDecimal(alpha, 2)}.`}
             </p>
           </div>
@@ -55,7 +57,7 @@ export function InferencePanel() {
                   <th>MCC médio B</th>
                   <th>Diferença A − B</th>
                   <th>p ajustado · Holm</th>
-                  <th>Evidência a 5%</th>
+                  <th>Evidência a {significanceLevel}</th>
                 </tr>
               </thead>
               <tbody>

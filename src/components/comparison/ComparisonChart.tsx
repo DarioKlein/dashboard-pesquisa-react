@@ -42,8 +42,16 @@ export function ComparisonChart({ stage, scope, metric }: ComparisonChartProps) 
   const scale = getChartScale(metric, scaleValues)
   const range = scale.max - scale.min
 
-  const position = (value: number) =>
-    Math.max(0, Math.min(100, ((value - scale.min) / range) * 100))
+  const scalePosition = (value: number) => {
+    const position =
+      scale.mode === 'log'
+        ? ((Math.log10(value) - Math.log10(scale.min)) /
+            (Math.log10(scale.max) - Math.log10(scale.min))) *
+          100
+        : ((value - scale.min) / range) * 100
+
+    return Math.max(0, Math.min(100, position))
+  }
 
   const barGeometry = (value: number) => {
     if (scale.mode === 'log') {
@@ -67,19 +75,28 @@ export function ComparisonChart({ stage, scope, metric }: ComparisonChartProps) 
   return (
     <div
       className="comparison-chart"
-      role="img"
+      role="group"
       aria-label={`Comparação de ${metricInfo[metric].label}. ${scale.label}`}
     >
       <div className="chart-scale" aria-hidden="true">
         {scale.ticks.map((tick) => (
-          <span key={tick}>{scale.format(tick)}</span>
+          <span
+            key={tick}
+            style={{ top: `${100 - scalePosition(tick)}%` }}
+          >
+            {scale.format(tick)}
+          </span>
         ))}
       </div>
 
       <div className="chart-grid">
         <div className="chart-lines" aria-hidden="true">
           {scale.ticks.map((tick) => (
-            <span key={tick} className={tick === 0 ? 'zero-line' : undefined} />
+            <span
+              key={tick}
+              className={tick === 0 ? 'zero-line' : undefined}
+              style={{ top: `${100 - scalePosition(tick)}%` }}
+            />
           ))}
         </div>
 
@@ -103,8 +120,12 @@ export function ComparisonChart({ stage, scope, metric }: ComparisonChartProps) 
                 const isWinner = getBestResult(stage, dataset, metric)?.algorithm === algorithm
                 const showErrorBar =
                   Number.isFinite(standardDeviation) && !isTimeMetric(metric)
-                const errorLow = showErrorBar ? position(value - standardDeviation) : 0
-                const errorHigh = showErrorBar ? position(value + standardDeviation) : 0
+                const errorLow = showErrorBar
+                  ? scalePosition(value - standardDeviation)
+                  : 0
+                const errorHigh = showErrorBar
+                  ? scalePosition(value + standardDeviation)
+                  : 0
                 const tooltipPosition = showErrorBar
                   ? errorHigh
                   : bottom + height

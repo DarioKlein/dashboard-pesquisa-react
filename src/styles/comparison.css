@@ -51,14 +51,16 @@
   position: absolute;
   inset: 0 auto 68px 0;
   width: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   text-align: right;
   color: #8b95a8;
   font:
     400 var(--font-small)/1.2 'DM Mono',
     monospace;
+}
+.chart-scale span {
+  position: absolute;
+  right: 0;
+  translate: 0 -50%;
 }
 .chart-grid {
   position: relative;
@@ -71,12 +73,11 @@
 .chart-lines {
   position: absolute;
   inset: 0 0 68px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   pointer-events: none;
 }
 .chart-lines span {
+  position: absolute;
+  left: 0;
   width: 100%;
   border-top: 1px solid #edf0f5;
 }

@@ -32,8 +32,15 @@ export const validateInferenceData = () => {
     parseFinite(mccDecision?.Pares_Validos) === 6 &&
     Number.isFinite(alpha)
 
+  const valid = decisionIsValid && validationsAreValid && comparisonsAreValid
+  const significantCount = valid
+    ? mccComparisons.filter((row) => parseFinite(row.P_Holm) < alpha).length
+    : 0
+
   return {
     alpha,
-    valid: decisionIsValid && validationsAreValid && comparisonsAreValid,
+    valid,
+    comparisonCount: valid ? mccComparisons.length : 0,
+    significantCount,
   }
 }

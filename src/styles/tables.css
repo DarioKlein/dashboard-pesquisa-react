@@ -30,6 +30,16 @@
   font-size: var(--font-label);
   line-height: 1.5;
 }
+.dataset-table-block + .dataset-table-block {
+  margin-top: 30px;
+}
+caption {
+  padding: 0 0 12px;
+  color: var(--color-text);
+  text-align: left;
+  font-size: var(--font-ui);
+  font-weight: 800;
+}
 table {
   width: 100%;
   border-collapse: collapse;
