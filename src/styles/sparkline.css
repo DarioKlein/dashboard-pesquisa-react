@@ -4,7 +4,7 @@
   text-align: center;
   color: #7c879b;
   font:
-    400 0.6875rem 'DM Mono',
+    400 var(--font-small) 'DM Mono',
     monospace;
 }
 .sparkline svg {
@@ -38,6 +38,5 @@
   justify-content: space-between;
   margin-top: 2px;
   color: #7c879b;
-  font: 400 0.6875rem 'DM Mono', monospace;
+  font: 400 var(--font-small) 'DM Mono', monospace;
 }
-

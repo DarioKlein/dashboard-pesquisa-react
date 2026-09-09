@@ -30,7 +30,7 @@
   }
   main {
     margin: 0;
-    padding: 0 15px 22px;
+    padding: 0 17px 22px;
   }
   .topbar {
     min-height: auto;
@@ -50,7 +50,7 @@
   }
   .stage-selector > p {
     grid-column: auto;
-    padding: 10px 12px;
+    padding: 12px 14px;
     border-top: 1px solid var(--border);
     border-left: 0;
   }
@@ -62,12 +62,12 @@
   }
   .summary-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 9px;
-    padding: 15px 0;
+    gap: 12px;
+    padding: 17px 0;
   }
   .summary-card,
   .insight-card {
-    min-height: 122px;
+    min-height: 160px;
   }
   .insight-card {
     grid-column: 1/-1;
@@ -105,7 +105,7 @@
   }
   .frequency-row {
     grid-template-columns: 1fr 64px;
-    gap: 7px 12px;
+    gap: 7px 14px;
   }
   .frequency-track {
     grid-column: 1;
@@ -140,7 +140,7 @@
     flex-direction: column;
   }
   .dataset-detail {
-    padding: 15px 12px;
+    padding: 17px 14px;
   }
   .dataset-detail > header {
     align-items: flex-start;
@@ -168,7 +168,7 @@
   }
   .stage-selector {
     display: block;
-    padding: 12px 0 18px;
+    padding: 14px 0 18px;
   }
   .stage-option.active {
     width: 100%;
@@ -191,4 +191,3 @@
     margin: 10mm;
   }
 }
-

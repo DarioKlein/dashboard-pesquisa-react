@@ -105,14 +105,28 @@ export function ComparisonChart({ stage, scope, metric }: ComparisonChartProps) 
                   Number.isFinite(standardDeviation) && !isTimeMetric(metric)
                 const errorLow = showErrorBar ? position(value - standardDeviation) : 0
                 const errorHigh = showErrorBar ? position(value + standardDeviation) : 0
+                const tooltipPosition = showErrorBar
+                  ? errorHigh
+                  : bottom + height
 
                 return (
-                  <div className="bar-wrap" key={dataset}>
+                  <div
+                    className="bar-wrap"
+                    key={dataset}
+                    tabIndex={0}
+                    aria-label={`${algorithmInfo[algorithm].name}, ${datasetInfo[dataset].name}: média de ${formatMetric(metric, value)}${showErrorBar ? `, desvio-padrão de ${formatMetric(metric, standardDeviation)}` : ''}`}
+                  >
                     <span
-                      className="bar-value"
-                      style={{ bottom: `calc(${bottom + height}% + 4px)` }}
+                      className="bar-tooltip"
+                      style={{ bottom: `calc(${tooltipPosition}% + 12px)` }}
+                      aria-hidden="true"
                     >
-                      {formatMetric(metric, value)}
+                      <strong>{formatMetric(metric, value)}</strong>
+                      <small>
+                        Média
+                        {showErrorBar &&
+                          ` · DP ± ${formatMetric(metric, standardDeviation)}`}
+                      </small>
                     </span>
                     <div
                       className={`bar ${isWinner ? 'winner' : ''}`}

@@ -1,12 +1,12 @@
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(150px, 1fr)) minmax(240px, 1.2fr);
-  gap: 14px;
-  padding: 24px 0;
+  grid-template-columns: repeat(3, minmax(220px, 1fr)) minmax(300px, 1.3fr);
+  gap: 16px;
+  padding: 28px 0;
 }
 .summary-card,
 .insight-card {
-  min-height: 132px;
+  min-height: 170px;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: var(--surface);
@@ -14,7 +14,7 @@
 }
 .summary-card {
   position: relative;
-  padding: 18px;
+  padding: 22px;
   overflow: hidden;
 }
 .summary-card::before {
@@ -25,8 +25,8 @@
   background: var(--card-accent);
 }
 .summary-value {
-  margin: 12px 0 1px;
-  font-size: 28px;
+  margin: 16px 0 4px;
+  font-size: 2rem;
   line-height: 1;
   font-weight: 800;
   letter-spacing: -1.2px;
@@ -37,18 +37,20 @@
   display: block;
 }
 .summary-card strong {
-  font-size: 11px;
+  font-size: var(--font-small);
+  line-height: 1.35;
 }
 .summary-card small {
-  margin-top: 4px;
+  margin-top: 7px;
   color: #9aa2b4;
-  font-size: 9px;
+  font-size: var(--font-metadata);
+  line-height: 1.45;
 }
 .insight-card {
   display: flex;
-  gap: 13px;
+  gap: 16px;
   align-items: center;
-  padding: 18px;
+  padding: 22px;
   color: white;
   border: 0;
   background: linear-gradient(138deg, #202d4b, #111a31);
@@ -73,12 +75,12 @@
 }
 .insight-card strong {
   margin-top: 10px;
-  font-size: 12px;
+  font-size: var(--font-label);
+  line-height: 1.4;
 }
 .insight-card small {
-  margin-top: 5px;
+  margin-top: 7px;
   color: #8f9ab0;
-  font-size: 9px;
+  font-size: var(--font-metadata);
   line-height: 1.5;
 }
-

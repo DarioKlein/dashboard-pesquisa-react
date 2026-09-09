@@ -8,13 +8,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  padding: 11px;
+  gap: 12px;
+  padding: 13px;
   color: #5e6980;
   border: 1px solid var(--border);
-  border-radius: 9px;
+  border-radius: 12px;
   background: white;
-  font-size: 0.8125rem;
+  font-size: var(--font-ui);
   font-weight: 700;
   cursor: pointer;
 }
@@ -40,21 +40,21 @@
   min-width: 0;
   padding: 20px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   background: #fbfcfe;
 }
 .dataset-detail > header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 14px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--border);
 }
 .dataset-detail > header > div {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 12px;
 }
 .dataset-detail header i {
   width: 8px;
@@ -66,20 +66,20 @@
   display: block;
 }
 .dataset-detail header strong {
-  font-size: 0.9375rem;
+  font-size: var(--font-emphasis);
 }
 .dataset-detail header small {
   margin-top: 3px;
   color: #7f899e;
-  font-size: 0.75rem;
+  font-size: var(--font-label);
 }
 .rank-chip {
-  padding: 6px 9px;
+  padding: 6px 12px;
   color: #59657c;
   border: 1px solid #d9dee8;
   border-radius: 20px;
   background: white;
-  font-size: 0.6875rem;
+  font-size: var(--font-small);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -91,11 +91,11 @@
   margin: 14px 0;
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: 9px;
+  border-radius: 12px;
   background: var(--border);
 }
 .metric-grid > div {
-  padding: 12px;
+  padding: 14px;
   background: white;
   transition: background 0.2s;
 }
@@ -109,7 +109,7 @@
 }
 .metric-grid span {
   color: #737e93;
-  font-size: 0.6875rem;
+  font-size: var(--font-small);
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -124,13 +124,13 @@
   margin-top: 4px;
   color: #7f899c;
   font:
-    400 0.6875rem 'DM Mono',
+    400 var(--font-small) 'DM Mono',
     monospace;
 }
 .detail-split {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
-  gap: 15px;
+  gap: 17px;
 }
 .detail-split > div {
   min-width: 0;
@@ -139,18 +139,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 9px;
+  margin-bottom: 12px;
 }
 .subheading span {
   color: #4f5a72;
-  font-size: 0.75rem;
+  font-size: var(--font-label);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 .subheading small {
   color: #7f899d;
-  font-size: 0.6875rem;
+  font-size: var(--font-small);
 }
 .detail-split > div:last-child .subheading {
   display: block;
@@ -162,4 +162,3 @@
   text-align: left;
   overflow-wrap: anywhere;
 }
-

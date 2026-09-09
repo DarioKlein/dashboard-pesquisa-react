@@ -2,18 +2,18 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  padding: 9px 13px;
+  padding: 11px 15px;
   color: #536078;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: white;
-  font-size: 0.75rem;
+  font-size: var(--font-label);
   font-weight: 700;
   cursor: pointer;
 }
 .export-button svg {
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
@@ -25,24 +25,35 @@
   overflow-x: auto;
 }
 .table-note {
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   color: #717c91;
-  font-size: 0.75rem;
+  font-size: var(--font-label);
+  line-height: 1.5;
 }
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.75rem;
+  font-size: var(--font-label);
+}
+.metrics-panel table {
+  min-width: 1400px;
+}
+.inference-panel table {
+  min-width: 1040px;
+}
+.time-panel table {
+  min-width: 820px;
 }
 th {
-  padding: 11px 12px;
+  padding: 14px 14px;
   color: #707b90;
   background: #f5f6f9;
   text-align: right;
-  font-size: 0.6875rem;
+  font-size: var(--font-small);
   text-transform: uppercase;
   letter-spacing: 0.45px;
   white-space: nowrap;
+  line-height: 1.35;
 }
 th:first-child {
   text-align: left;
@@ -53,25 +64,26 @@ th:last-child {
 }
 td {
   position: relative;
-  padding: 14px 12px;
+  padding: 18px 14px;
   border-bottom: 1px solid #edf0f5;
   color: #4b566e;
   text-align: right;
   font:
-    500 0.75rem 'DM Mono',
+    500 var(--font-label) 'DM Mono',
     monospace;
+  line-height: 1.4;
 }
 td:first-child {
-  min-width: 145px;
+  min-width: 180px;
   text-align: left;
   vertical-align: middle;
   font-family: 'Manrope', sans-serif;
   font-weight: 700;
 }
 .table-wrap td b {
-  width: 24px;
-  height: 24px;
-  margin-right: 8px;
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
   display: inline-grid;
   vertical-align: middle;
 }
@@ -80,7 +92,7 @@ td:first-child {
   vertical-align: middle;
 }
 .table-wrap tbody tr {
-  height: 62px;
+  height: 78px;
 }
 td.best-cell {
   color: #4d4a9b;
@@ -93,7 +105,7 @@ td.best-cell small {
   margin-top: 3px;
   color: #7774bd;
   font:
-    600 0.625rem 'Manrope',
+    600 var(--font-metadata) 'Manrope',
     sans-serif;
   text-transform: uppercase;
 }
@@ -103,22 +115,22 @@ td.best-cell small {
   display: block;
 }
 .table-wrap td:not(:first-child) > small {
-  margin-top: 4px;
+  margin-top: 6px;
   color: #8992a4;
-  font-size: 0.6875rem;
+  font-size: var(--font-small);
 }
 .table-wrap td:not(:first-child) > em {
-  margin-top: 4px;
+  margin-top: 6px;
   color: #7774bd;
-  font: 600 0.625rem 'Manrope', sans-serif;
+  font: 600 var(--font-metadata) 'Manrope', sans-serif;
   font-style: normal;
   text-transform: uppercase;
   white-space: nowrap;
 }
 .panel-footnote {
-  margin-top: 13px;
+  margin-top: 16px;
   color: #747f94;
-  font-size: 0.75rem;
+  font-size: var(--font-label);
   line-height: 1.55;
 }
 .time-panel .table-wrap {
@@ -127,4 +139,3 @@ td.best-cell small {
 .time-panel td:not(:first-child) {
   min-width: 118px;
 }
-

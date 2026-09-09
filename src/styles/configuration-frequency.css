@@ -1,6 +1,6 @@
 .config-box {
-  margin-top: 12px;
-  padding: 12px;
+  margin-top: 14px;
+  padding: 14px;
   border-radius: 7px;
   background: #f1f3f7;
 }
@@ -11,7 +11,7 @@
 }
 .config-box span {
   color: #737e93;
-  font-size: 0.6875rem;
+  font-size: var(--font-small);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -20,7 +20,7 @@
   margin-top: 6px;
   overflow: hidden;
   color: #404b63;
-  font-size: 0.75rem;
+  font-size: var(--font-label);
   text-overflow: ellipsis;
   white-space: nowrap;
   text-transform: capitalize;
@@ -28,7 +28,7 @@
 .config-box small {
   margin-top: 5px;
   color: #727d92;
-  font-size: 0.6875rem;
+  font-size: var(--font-small);
   line-height: 1.4;
   text-transform: capitalize;
 }
@@ -44,9 +44,9 @@
 .frequency-row {
   display: grid;
   grid-template-columns: minmax(190px, 1.5fr) minmax(120px, 1fr) 70px auto;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
-  padding: 9px 11px;
+  padding: 12px 13px;
   border: 1px solid #e6e9f0;
   border-radius: 8px;
   background: white;
@@ -59,14 +59,14 @@
 }
 .frequency-row strong {
   color: #3e4961;
-  font-size: 0.75rem;
+  font-size: var(--font-label);
   text-transform: capitalize;
 }
 .frequency-row > div small {
   margin-top: 3px;
   overflow: hidden;
   color: #7f899d;
-  font-size: 0.6875rem;
+  font-size: var(--font-small);
   line-height: 1.4;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -85,28 +85,27 @@
 .frequency-row > b {
   color: #3f4a62;
   text-align: right;
-  font: 500 0.75rem 'DM Mono', monospace;
+  font: 500 var(--font-label) 'DM Mono', monospace;
   white-space: nowrap;
 }
 .frequency-row > b small {
   margin-top: 2px;
   color: #8b94a6;
-  font-size: 0.625rem;
+  font-size: var(--font-metadata);
 }
 .frequency-row > em {
   padding: 4px 7px;
   color: #5b579f;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #efeeff;
-  font-size: 0.625rem;
+  font-size: var(--font-metadata);
   font-style: normal;
   font-weight: 700;
   white-space: nowrap;
 }
 .frequency-panel > p {
-  margin-top: 10px;
+  margin-top: 12px;
   color: #7a8598;
-  font-size: 0.75rem;
+  font-size: var(--font-label);
   line-height: 1.5;
 }
-

@@ -19,6 +19,13 @@
   --radius-card: 14px;
   --radius-panel: 15px;
 
+  --font-metadata: 0.8125rem;
+  --font-small: 0.875rem;
+  --font-label: 0.9375rem;
+  --font-ui: 1rem;
+  --font-body: 1rem;
+  --font-emphasis: 1.0625rem;
+
   /* Aliases preservados para os módulos visuais existentes. */
   --navy: var(--color-navy);
   --muted: var(--color-muted);

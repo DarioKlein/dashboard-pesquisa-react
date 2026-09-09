@@ -71,7 +71,7 @@ export function ComparisonPanel({
       <ComparisonChart stage={stage} metric={metric} scope={scope} />
 
       <div className="chart-caption">
-        <span>★ Ordenação pela média observada · hastes representam DP</span>
+        <span>★ Ordenação pela média observada · hastes cinza representam média ± 1 DP</span>
         <span>O destaque não indica significância estatística.</span>
       </div>
     </section>
