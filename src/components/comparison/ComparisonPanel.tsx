@@ -5,7 +5,7 @@ import {
   type MetricId,
   type StageId,
 } from '../../data'
-import { getVisibleDatasets, type Scope } from '../../lib/dashboard'
+import { getVisibleDatasets, isTimeMetric, type Scope } from '../../lib/dashboard'
 import { PanelHeading } from '../ui/PanelHeading'
 import { ComparisonChart } from './ComparisonChart'
 
@@ -48,8 +48,12 @@ export function ComparisonPanel({
         }
         description={
           stage === 'nested'
-            ? 'Média e DP das 15 avaliações externas'
-            : 'Média e DP das 3 repetições OOF'
+            ? isTimeMetric(metric)
+              ? 'Tempo médio das 15 avaliações externas'
+              : 'Média e DP das 15 avaliações externas'
+            : isTimeMetric(metric)
+              ? 'Tempo médio das 3 repetições OOF'
+              : 'Média e DP das 3 repetições OOF'
         }
         action={legend}
       />
@@ -71,7 +75,11 @@ export function ComparisonPanel({
       <ComparisonChart stage={stage} metric={metric} scope={scope} />
 
       <div className="chart-caption">
-        <span>★ Ordenação pela média observada · hastes cinza representam média ± 1 DP</span>
+        <span>
+          {isTimeMetric(metric)
+            ? '★ Ordenação pelo menor tempo médio observado'
+            : '★ Ordenação pela média observada · hastes cinza representam média ± 1 DP'}
+        </span>
         <span>O destaque não indica significância estatística.</span>
       </div>
     </section>
