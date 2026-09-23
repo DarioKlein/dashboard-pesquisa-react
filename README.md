@@ -32,7 +32,7 @@ A avaliação complementar não é validação em uma população externa indepe
 ## Algoritmos
 
 - Árvore de Decisão
-- Naive Bayes
+- Naïve Bayes
 - Random Forest
 - SVM linear
 

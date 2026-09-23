@@ -221,6 +221,7 @@
   font-size: var(--font-metadata);
 }
 .bar-label b {
+  background: #666666;
   width: 25px;
   height: 25px;
 }

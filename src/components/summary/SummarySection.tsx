@@ -47,7 +47,7 @@ function InsightCard({
             ? inferenceIsValid
               ? `${significantCount} de ${comparisonCount} comparações significativas após Holm. O resultado não demonstra equivalência.`
               : 'Validação dos arquivos necessária.'
-            : 'Naive Bayes tem a maior média no Cleveland; Random Forest, no Kaggle. Sem inferência de significância.'}
+            : 'Naïve Bayes tem a maior média no Cleveland; Random Forest, no Kaggle. Sem inferência de significância.'}
         </small>
       </div>
     </article>

@@ -173,7 +173,7 @@ export function ComparisonChart({ stage, scope, metric }: ComparisonChartProps) 
               })}
             </div>
             <div className="bar-label">
-              <b style={{ background: algorithmInfo[algorithm].color }}>
+              <b>
                 {algorithmInfo[algorithm].short}
               </b>
               {algorithmInfo[algorithm].name}

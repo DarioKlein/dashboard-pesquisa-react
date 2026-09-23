@@ -25,7 +25,7 @@ export const algorithmInfo: Record<
     color: 'var(--color-coral)',
   },
   naive_bayes: {
-    name: 'Naive Bayes',
+    name: 'Naïve Bayes',
     short: 'NB',
     color: 'var(--color-purple)',
   },
